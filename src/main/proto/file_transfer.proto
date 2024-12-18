@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "io.grpc.examples.filetransfer";
+option java_outer_classname = "FileTransferProto";
+
+service FileTransferService {
+  rpc UploadFile(stream FileChunk) returns (UploadStatus) {}
+  rpc DownloadFile(FileRequest) returns (stream FileChunk) {}
+}
+
+message FileChunk {
+  bytes content = 1;
+  string fileName = 2;
+}
+
+message FileRequest {
+  string fileName = 1;
+}
+
+message UploadStatus {
+  bool success = 1;
+  string message = 2;
+}
